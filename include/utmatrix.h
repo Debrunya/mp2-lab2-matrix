@@ -49,15 +49,18 @@ public:
     // ввод-вывод
     friend istream& operator>>(istream &in, TVector &v)
     {
-      for (int i = 0; i < v.Size; i++)
-        in >> v.pVector[i];
-      return in;
+        for (int i = 0; i < v.Size; i++)
+            in >> v.pVector[i];
+        return in;
     }
     friend ostream& operator<<(ostream &out, const TVector &v)
     {
-      for (int i = 0; i < v.Size; i++)
-        out << v.pVector[i] << ' ';
-      return out;
+        for (int i = 0; i < v.Size; i++)
+        {
+            cout.width(5);
+            out << v.pVector[i];
+        }
+        return out;
     }
 };
 
@@ -97,13 +100,14 @@ template <class ValType>
 TVector<ValType>::~TVector()
 {
     delete[] pVector;
+    pVector = NULL;
 } /*-------------------------------------------------------------------------*/
 
 
 template <class ValType> // доступ
 ValType& TVector<ValType>::operator[](int pos)
 {
-    if ((pos < StartIndex) || (pos > StartIndex + Size)) throw logic_error("Not a vector's member");
+    if ((pos < StartIndex) || (pos >= StartIndex + Size)) throw logic_error("Not a vector's member");
 
     return pVector[pos - StartIndex];
 } /*-------------------------------------------------------------------------*/
@@ -147,6 +151,7 @@ TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
         pVector = new ValType[s];
         Size = s;
     }
+    StartIndex = v.GetStartIndex();
 
     for (int i = 0; i < s; i++)
     {
@@ -265,19 +270,23 @@ public:
     // ввод / вывод
     friend istream& operator>>(istream &in, TMatrix &mt)
     {
-      for (int i = 0; i < mt.Size; i++)
-        in >> mt.pVector[i];
-      return in;
+        for (int i = 0; i < mt.Size; i++)
+            in >> mt.pVector[i];
+        return in;
     }
     friend ostream & operator<<( ostream &out, const TMatrix &mt)
     {
-        for (int i = 0; i < mt.GetSize(); i++)
+        int n = mt.GetSize();
+
+        for (int i = 0; i < n; i++)
         {
-            for (int j = 0; j < mt.pVector[i].GetStartIndex(); j++)
+            for (int j = 0; j < n; j++)
             {
-                out << 0 << " ";
+                cout.width(5);
+                if (i > j) out << 0;
             }
-            out << mt.pVector[i] << endl;
+            cout << mt.pVector[i];
+            out << endl;
         }
         return out;
     }
