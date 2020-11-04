@@ -152,7 +152,7 @@ TEST(TMatrix, can_add_matrices_with_equal_size)
     m[2][2] = 5;
     m1[2][2] = 5;
 
-    ASSERT_NO_THROW(m + m1);
+    ASSERT_NO_THROW(m = m + m1);
 }
 
 TEST(TMatrix, cant_add_matrices_with_not_equal_size)
@@ -163,7 +163,7 @@ TEST(TMatrix, cant_add_matrices_with_not_equal_size)
     m[2][2] = 5;
     m1[2][2] = 5;
 
-    ASSERT_ANY_THROW(m + m1);
+    ASSERT_ANY_THROW(m = m + m1);
 }
 
 TEST(TMatrix, can_subtract_matrices_with_equal_size)
@@ -174,7 +174,7 @@ TEST(TMatrix, can_subtract_matrices_with_equal_size)
     m[2][2] = 5;
     m1[2][2] = 5;
 
-    ASSERT_NO_THROW(m - m1);
+    ASSERT_NO_THROW(m = m - m1);
 }
 
 TEST(TMatrix, cant_subtract_matrixes_with_not_equal_size)
@@ -185,5 +185,5 @@ TEST(TMatrix, cant_subtract_matrixes_with_not_equal_size)
     m[2][2] = 5;
     m1[2][2] = 5;
 
-    ASSERT_ANY_THROW(m - m1);
+    ASSERT_ANY_THROW(m = m - m1);
 }
